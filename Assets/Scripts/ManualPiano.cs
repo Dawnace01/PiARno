@@ -43,13 +43,14 @@ public class ManualPiano : MonoBehaviour
 
     public void stopSound()
     {
-        s_Sound.Stop();
+        if (s_Sound != null)
+            s_Sound.Stop();
     }
 
     public void startScript()
     {
         // Change the Color of the GameObject when the mouse hovers over it
-        if (once)
+        if (once && m_Material != null)
         {
             m_Material.color = Color.cyan;
             //Debug.Log(transform.name);
@@ -59,6 +60,9 @@ public class ManualPiano : MonoBehaviour
 
     public void stopScript()
     {
+        if (m_Material == null)
+            return;
+
         //Change the Color back to white when the mouse exits the GameObject
         if (transform.parent.name == "Blanches")
             m_Material.color = Color.white;
