@@ -10,202 +10,128 @@ using Microsoft.MixedReality.Toolkit.Input;
 
 public class FingerDetection : MonoBehaviour
 {
+    public GameObject key;
+    public Color keyOriginalColor = Color.white;
+    public Color keyModifiedColor = Color.cyan;
+    MixedRealityPose poseThumbR,poseIndexR,poseMiddleR,poseRingR,posePinkyR;
+    MixedRealityPose poseThumbL, poseIndexL, poseMiddleL, poseRingL, posePinkyL;
 
-    //[SerializeField]
-    //TextMeshPro textToModify;
-
-    //public GameObject sphereMarker;
-
-    //GameObject thumbObject;
-    //GameObject indexObject;
-    //GameObject middleObject;
-    //GameObject ringObject;
-    //GameObject pinkyObject;
-
-    //MixedRealityPose pose;
-
-    //void Start()
-    //{
-    //    thumbObject = Instantiate(sphereMarker, this.transform);
-    //    indexObject = Instantiate(sphereMarker, this.transform);
-    //    middleObject = Instantiate(sphereMarker, this.transform);
-    //    ringObject = Instantiate(sphereMarker, this.transform);
-    //    pinkyObject = Instantiate(sphereMarker, this.transform);
-    //}
-
-    //void Update()
-    //{
-    //    if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Right, out pose))
-    //    {
-    //        thumbObject.GetComponent<Renderer>().enabled = true;
-    //        thumbObject.transform.position = pose.Position;
-    //    }
-    //}
-
-
-    //public void setTextFinger()
-    //{
-
-    //    textToModify.SetText("Button Pressed");
-    //}
-
-    [SerializeField]
-    GameObject[] buttons;
-    [SerializeField]
-    GameObject text;
-
-    public GameObject sphereMarker;
-    MixedRealityPose pose;
-    GameObject thumbObject;
-    GameObject indexObject;
-    GameObject middleObject;
-    GameObject ringObject;
-    GameObject pinkyObject;
-
-    private void Start()
-    {
-        thumbObject = Instantiate(sphereMarker, this.transform);
-        indexObject = Instantiate(sphereMarker, this.transform);
-        middleObject = Instantiate(sphereMarker, this.transform);
-        ringObject = Instantiate(sphereMarker, this.transform);
-        pinkyObject = Instantiate(sphereMarker, this.transform);
-    }
+    private void Start(){  }
 
     private void Update()
     {
-/****** Right hand ******/
-    // Thumb
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Right, out pose))
+        key.GetComponent<MeshRenderer>().material.color = keyOriginalColor;
+        /****** Right hand ******/
+        // Thumb
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Right, out poseThumbR))
         {
-            thumbObject.transform.position = pose.Position;
-            Debug.Log("Pouce Droit : " + pose.Position);
-            if (isCollision(pose.Position))
+            if (isCollision(poseThumbR.Position))
             {
-                this.setText("Pouce droit");
+                Debug.Log("Pouce droit");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Index
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Right, out pose))
+        // Index
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Right, out poseIndexR))
         {
-            indexObject.transform.position = pose.Position;
-            Debug.Log("Index Droit : " + pose.Position);
-            if (isCollision(pose.Position))
+            if (isCollision(poseIndexR.Position))
             {
-                this.setText("Index droit");
+                Debug.Log("Index droit");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Middle
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Right, out pose))
+        // Middle
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Right, out poseMiddleR))
         {
-            middleObject.transform.position = pose.Position;
-            Debug.Log("Majeur Droit : " + pose.Position);
-            if (isCollision(pose.Position))
+            if (isCollision(poseMiddleR.Position))
             {
-                this.setText("Majeur droit");
+                Debug.Log("Majeur droit");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Ring
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Right, out pose))
+        // Ring
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Right, out poseRingR))
         {
-            ringObject.transform.position = pose.Position;
-            Debug.Log("Annulaire Droit : " + pose.Position);
-            if (isCollision(pose.Position))
+            if (isCollision(poseRingR.Position))
             {
-                this.setText("Annulaire droit");
+                Debug.Log("Annulaire droit");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Pinky
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Right, out pose))
+        // Pinky
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Right, out posePinkyR))
         {
-            pinkyObject.transform.position = pose.Position;
-            Debug.Log("Auriculaire Droit : " + pose.Position);
-            if (isCollision(pose.Position))
+            if (isCollision(posePinkyR.Position))
             {
-                this.setText("Auriculaire droit");
+                Debug.Log("Auriculaire droit");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
 
-/****** Left hand ******/
-    // Thumb
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Left, out pose))
+        /****** Left hand ******/
+        // Thumb
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Left, out poseThumbL))
         {
-            thumbObject.transform.position = pose.Position;
-            if (isCollision(pose.Position))
+            if (isCollision(poseThumbL.Position))
             {
-                this.setText("Pouce gauche");
+                Debug.Log("Pouce gauche");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Index
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Left, out pose))
+        // Index
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Left, out poseIndexL))
         {
-            indexObject.transform.position = pose.Position;
-            if (isCollision(pose.Position))
+            if (isCollision(poseIndexL.Position))
             {
-                this.setText("Index gauche");
+                Debug.Log("Index gauche");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Middle
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Left, out pose))
+        // Middle
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Left, out poseMiddleL))
         {
-            middleObject.transform.position = pose.Position;
-            if (isCollision(pose.Position))
+            if (isCollision(poseMiddleL.Position))
             {
-                this.setText("Majeur gauche");
+                Debug.Log("Majeur gauche");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Ring
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Left, out pose))
+        // Ring
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Left, out poseRingL))
         {
-            ringObject.transform.position = pose.Position;
-            if (isCollision(pose.Position))
+            if (isCollision(poseRingL.Position))
             {
-                this.setText("Annulaire gauche");
+                Debug.Log("Annulaire gauche");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
-    // Pinky
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Left, out pose))
+        // Pinky
+        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Left, out posePinkyL))
         {
-            pinkyObject.transform.position = pose.Position;
-            if (isCollision(pose.Position))
+            if (isCollision(posePinkyL.Position))
             {
-                this.setText("Auriculaire gauche");
+                Debug.Log("Auriculaire gauche");
+                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
             }
         }
 
-        else
-        {
-            this.setText("Appuyez");
-        }
-    }
 
-    private void setText(string _text)
-    {
-        text.GetComponent<Text>().text = _text;
-    }
-
-    private Vector3 getPosition()
-    {
-        return buttons[0].GetComponent<RectTransform>().position;
-    }
-
-    private float getHalfWidthSize()
-    {
-        return buttons[0].GetComponent<RectTransform>().rect.width / 2;
-    }
-
-    private float getHalfHeightSize()
-    {
-        return buttons[0].GetComponent<RectTransform>().rect.height / 2;
     }
 
     private bool isCollision(Vector3 current)
     {
-        Vector3 button = this.getPosition();
-        float HWidth = getHalfWidthSize(), HHeight = getHalfHeightSize();
+        Vector3 button = key.transform.position;
+
+        float halfWidth = key.transform.localScale.x / 2,
+            halfHeight = key.transform.localScale.y / 2,
+            halfDeep = key.transform.localScale.z / 2;
+
         return (
-                (current.x >= button.x - HWidth) && (current.x <= button.x + HWidth) 
-                && 
-                (current.y >= button.y - HHeight) && (current.y <= button.y + HHeight)
+                (current.x >= (button.x - halfWidth)) && (current.x <= (button.x + halfWidth))
+                &&
+                (current.y >= (button.y - halfHeight)) && (current.y <= (button.y + halfHeight))
+                &&
+                (current.z >= (button.z - halfDeep)) && (current.z <= (button.z + halfDeep))
             );
     }
 }
