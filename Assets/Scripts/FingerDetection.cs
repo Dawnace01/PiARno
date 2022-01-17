@@ -13,7 +13,7 @@ public class FingerDetection : MonoBehaviour
     public GameObject key;
     public Color keyOriginalColor = Color.white;
     public Color keyModifiedColor = Color.cyan;
-    MixedRealityPose poseThumbR,poseIndexR,poseMiddleR,poseRingR,posePinkyR;
+    MixedRealityPose poseThumbR, poseIndexR, poseMiddleR, poseRingR, posePinkyR;
     MixedRealityPose poseThumbL, poseIndexL, poseMiddleL, poseRingL, posePinkyL;
 
     private void Start(){  }
@@ -41,7 +41,7 @@ public class FingerDetection : MonoBehaviour
             }
         }
         // Middle
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Right, out poseMiddleR))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleMiddleJoint, Handedness.Right, out poseMiddleR))
         {
             if (isCollision(poseMiddleR.Position))
             {
@@ -50,7 +50,7 @@ public class FingerDetection : MonoBehaviour
             }
         }
         // Ring
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Right, out poseRingR))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Right, out poseRingR))
         {
             if (isCollision(poseRingR.Position))
             {
@@ -59,7 +59,7 @@ public class FingerDetection : MonoBehaviour
             }
         }
         // Pinky
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Right, out posePinkyR))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Right, out posePinkyR))
         {
             if (isCollision(posePinkyR.Position))
             {
@@ -70,7 +70,7 @@ public class FingerDetection : MonoBehaviour
 
         /****** Left hand ******/
         // Thumb
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Left, out poseThumbL))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Left, out poseThumbL))
         {
             if (isCollision(poseThumbL.Position))
             {
@@ -79,7 +79,7 @@ public class FingerDetection : MonoBehaviour
             }
         }
         // Index
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Left, out poseIndexL))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Left, out poseIndexL))
         {
             if (isCollision(poseIndexL.Position))
             {
@@ -88,7 +88,7 @@ public class FingerDetection : MonoBehaviour
             }
         }
         // Middle
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Left, out poseMiddleL))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Left, out poseMiddleL))
         {
             if (isCollision(poseMiddleL.Position))
             {
@@ -97,7 +97,7 @@ public class FingerDetection : MonoBehaviour
             }
         }
         // Ring
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Left, out poseRingL))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Left, out poseRingL))
         {
             if (isCollision(poseRingL.Position))
             {
@@ -106,7 +106,7 @@ public class FingerDetection : MonoBehaviour
             }
         }
         // Pinky
-        else if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Left, out posePinkyL))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Left, out posePinkyL))
         {
             if (isCollision(posePinkyL.Position))
             {
