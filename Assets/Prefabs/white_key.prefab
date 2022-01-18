@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5842689426169367495}
   - component: {fileID: 5842689426169367494}
   - component: {fileID: 3925457120908643871}
+  - component: {fileID: 3695069671830769464}
   m_Layer: 0
   m_Name: white_key
   m_TagString: Untagged
@@ -220,4 +221,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: {fileID: 5842689426169367488}
   keyOriginalColor: {r: 1, g: 1, b: 1, a: 1}
-  keyModifiedColor: {r: 0, g: 1, b: 1, a: 1}
+  keyCorrectColor: {r: 0, g: 1, b: 1, a: 1}
+  keyErrorColor: {r: 1, g: 0, b: 0, a: 1}
+  keyNotPlayerModeColor: {r: 0.9372549, g: 0.6117647, b: 0.007843138, a: 1}
+--- !u!114 &3695069671830769464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5842689426169367488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47b82cf6b8119d42ab57c8e247073a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isKeyPressed: 0
+  isProgrammedKeyPressed: 0
+  keyCurrentHand: 2
+  keyProgrammedHand: 2
+  keyCurrentFinger: 5
+  keyProgrammedFinger: 5
+  _isError: 1
+  isPlayerMode: 0
