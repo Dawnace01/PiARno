@@ -13,8 +13,17 @@ MonoBehaviour:
   m_Name: IconSetForMenu
   m_EditorClassIdentifier: 
   quadIcons:
-  - {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2800000, guid: 14146b669cf40cc4ba735a4303362e03, type: 3}
+  - {fileID: 2800000, guid: 40b8af12da9ea3549bae6e1f06759d1d, type: 3}
+  - {fileID: 2800000, guid: e13bd75c39a1ae54796fb05966c08a59, type: 3}
   - {fileID: 2800000, guid: a0f09455320ca6f4f85df7665750f211, type: 3}
+  - {fileID: 2800000, guid: 0867b5c544ec4a54280dda4b428eace1, type: 3}
+  - {fileID: 2800000, guid: 6f707a818282bf64ab708285d69a3c1a, type: 3}
+  - {fileID: 2800000, guid: 5ffcdc61c5ae91a4d8be0fec305a68e9, type: 3}
+  - {fileID: 2800000, guid: 19940e65487d9cf458d08036bad41807, type: 3}
+  - {fileID: 2800000, guid: 25144cd648acd404fa27e35b50e054ae, type: 3}
+  - {fileID: 2800000, guid: e0c35f185d9d500479faa051fb4588a7, type: 3}
+  - {fileID: 2800000, guid: 444503668092f0c4399b0e366b57cbd5, type: 3}
   spriteIcons: []
   charIconFont: {fileID: 0}
   charIcons:
