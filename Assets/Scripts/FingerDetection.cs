@@ -13,10 +13,6 @@ using PianoUtilities;
 public class FingerDetection : MonoBehaviour
 {
     public GameObject key;
-    public Color keyOriginalColor = Color.white;
-    public Color keyCorrectColor = Color.cyan;
-    public Color keyErrorColor = Color.red;
-    public Color keyNotPlayerModeColor = new Color(239, 156, 2);
     MixedRealityPose poseThumbR, poseIndexR, poseMiddleR, poseRingR, posePinkyR;
     MixedRealityPose poseThumbL, poseIndexL, poseMiddleL, poseRingL, posePinkyL;
 
@@ -24,7 +20,6 @@ public class FingerDetection : MonoBehaviour
 
     private void Update()
     {
-        key.GetComponent<MeshRenderer>().material.color = keyOriginalColor;
         setKeyStatus(false, Hand.NONE, Fingering.NONE);
         /****** Right hand ******/
         // Thumb
@@ -32,7 +27,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseThumbR.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.RIGHT, Fingering.ONE);
             }
         }
@@ -41,7 +35,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseIndexR.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.RIGHT, Fingering.TWO);
             }
         }
@@ -50,7 +43,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseMiddleR.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.RIGHT, Fingering.THREE);
             }
         }
@@ -59,7 +51,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseRingR.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.RIGHT, Fingering.FOUR);
             }
         }
@@ -68,7 +59,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(posePinkyR.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.RIGHT, Fingering.FIVE);
             }
         }
@@ -79,7 +69,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseThumbL.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.LEFT, Fingering.ONE);
             }
         }
@@ -88,7 +77,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseIndexL.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.LEFT, Fingering.TWO);
             }
         }
@@ -97,7 +85,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseMiddleL.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.LEFT, Fingering.THREE);
             }
         }
@@ -106,7 +93,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseRingL.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.LEFT, Fingering.FOUR);
             }
         }
@@ -115,7 +101,6 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(posePinkyL.Position))
             {
-                setColor();
                 setKeyStatus(true, Hand.LEFT, Fingering.FIVE);
             }
         }
@@ -136,24 +121,6 @@ public class FingerDetection : MonoBehaviour
                 &&
                 (current.z >= (button.z - halfDeep)) && (current.z <= (button.z + halfDeep))
             );
-    }
-
-    private void setColor()
-    {
-        if (!key.GetComponent<KeyStates>().isPlayerMode)
-        {
-            key.GetComponent<MeshRenderer>().material.color = keyNotPlayerModeColor;
-        }
-
-        else if (key.GetComponent<KeyStates>()._isError)
-        {
-            key.GetComponent<MeshRenderer>().material.color = keyErrorColor;
-        }
-
-        else
-        {
-            key.GetComponent<MeshRenderer>().material.color = keyCorrectColor;
-        }
     }
 
     private void setKeyStatus(bool isPressed, Hand currentHand, Fingering currentFingering)
