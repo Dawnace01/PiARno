@@ -342,8 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739f0514f045b2a48ab5784bd4b7cde3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: Imagine
+  fileName: BateauxMouches
   prefabTile: {fileID: 6024792061309566773, guid: 0bcffe21ebd2ae246bcfd8e87f4ebb59,
     type: 3}
   ConstHeightBloc: 1
-  x_scale_key: 1
+  x_scale_key_white: 1
+  x_scale_key_black: 0.5

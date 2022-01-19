@@ -18,7 +18,8 @@ public class ParseSheet : MonoBehaviour
 
     private int iterator = 0;
 
-    public double x_scale_key = 1;
+    public double x_scale_key_white = 1;
+    public double x_scale_key_black = .5f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +34,13 @@ public class ParseSheet : MonoBehaviour
             {
                 if (int.Parse(currentHandprint["duration"].Value) > 0) {
                     float y_scale_temp = ConstHeightBloc * int.Parse(currentHandprint["duration"].Value);
-                    GameObject temp = Instantiate(prefabTile, new Vector3((float)x_scale_key * int.Parse(currentHandprint["key"].Value), iterator + (y_scale_temp / 2), 0), Quaternion.identity);
-                    temp.transform.localScale = new Vector3((float)x_scale_key, y_scale_temp, temp.transform.localScale.z);
+
+                    GameObject temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)), iterator + (y_scale_temp / 2), 0), Quaternion.identity);
+                    
+                    if (isBlack(int.Parse(currentHandprint["key"].Value)))
+                        temp.transform.localScale = new Vector3((float)x_scale_key_black, y_scale_temp, temp.transform.localScale.z);
+                    else
+                        temp.transform.localScale = new Vector3((float)x_scale_key_white, y_scale_temp, temp.transform.localScale.z);
                 }
             }
             iterator++;
@@ -53,5 +59,33 @@ public class ParseSheet : MonoBehaviour
         sr.Close();
 
         return content;
+    }
+
+    private bool isBlack(int numberOfTheKey)
+    {
+        int localKeyValue = (numberOfTheKey - 4) % 12 + 1;
+        return numberOfTheKey == 2 ||
+                        localKeyValue == 2 ||
+                        localKeyValue == 4 ||
+                        localKeyValue == 7 ||
+                        localKeyValue == 9 ||
+                        localKeyValue == 11;
+    }
+
+    private float getXPosition(int numberOfTheKey)
+    {
+
+        if (isBlack(numberOfTheKey))
+        {
+            if (numberOfTheKey > 0)
+                return (float)x_scale_key_black + getXPosition(numberOfTheKey - 1);
+
+            return (float)x_scale_key_black;
+        }
+
+        if (numberOfTheKey > 0)
+            return (float)x_scale_key_white + getXPosition(numberOfTheKey - 1);
+
+        return (float)x_scale_key_white;
     }
 }
