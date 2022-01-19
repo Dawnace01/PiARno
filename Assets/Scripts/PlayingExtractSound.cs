@@ -6,23 +6,20 @@ public class PlayingExtractSound : MonoBehaviour
 {
     private bool isItPlaying = false;
     public AudioSource source;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private AudioClip audio;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void manageSound()
+    public void manageSound(AudioClip audioClip)
     {
         if(isItPlaying == false)
         {
-            source.Play();
+            source.PlayOneShot(audioClip);
+            audio = audioClip;
+            isItPlaying = true;
+        } else if (isItPlaying == true && audio != audioClip)
+        {
+            source.Stop();
+            source.PlayOneShot(audioClip);
+            audio = audioClip;
             isItPlaying = true;
         } else
         {
