@@ -8,11 +8,15 @@ using Microsoft;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Input;
 
+using PianoUtilities;
+
 public class FingerDetection : MonoBehaviour
 {
     public GameObject key;
     public Color keyOriginalColor = Color.white;
-    public Color keyModifiedColor = Color.cyan;
+    public Color keyCorrectColor = Color.cyan;
+    public Color keyErrorColor = Color.red;
+    public Color keyNotPlayerModeColor = new Color(239, 156, 2);
     MixedRealityPose poseThumbR, poseIndexR, poseMiddleR, poseRingR, posePinkyR;
     MixedRealityPose poseThumbL, poseIndexL, poseMiddleL, poseRingL, posePinkyL;
 
@@ -21,14 +25,15 @@ public class FingerDetection : MonoBehaviour
     private void Update()
     {
         key.GetComponent<MeshRenderer>().material.color = keyOriginalColor;
+        setKeyStatus(false, Hand.NONE, Fingering.NONE);
         /****** Right hand ******/
         // Thumb
         if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Right, out poseThumbR))
         {
             if (isCollision(poseThumbR.Position))
             {
-                Debug.Log("Pouce droit");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.RIGHT, Fingering.ONE);
             }
         }
         // Index
@@ -36,17 +41,17 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseIndexR.Position))
             {
-                Debug.Log("Index droit");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.RIGHT, Fingering.TWO);
             }
         }
         // Middle
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleMiddleJoint, Handedness.Right, out poseMiddleR))
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Right, out poseMiddleR))
         {
             if (isCollision(poseMiddleR.Position))
             {
-                Debug.Log("Majeur droit");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.RIGHT, Fingering.THREE);
             }
         }
         // Ring
@@ -54,8 +59,8 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseRingR.Position))
             {
-                Debug.Log("Annulaire droit");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.RIGHT, Fingering.FOUR);
             }
         }
         // Pinky
@@ -63,8 +68,8 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(posePinkyR.Position))
             {
-                Debug.Log("Auriculaire droit");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.RIGHT, Fingering.FIVE);
             }
         }
 
@@ -74,8 +79,8 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseThumbL.Position))
             {
-                Debug.Log("Pouce gauche");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.LEFT, Fingering.ONE);
             }
         }
         // Index
@@ -83,8 +88,8 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseIndexL.Position))
             {
-                Debug.Log("Index gauche");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.LEFT, Fingering.TWO);
             }
         }
         // Middle
@@ -92,8 +97,8 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseMiddleL.Position))
             {
-                Debug.Log("Majeur gauche");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.LEFT, Fingering.THREE);
             }
         }
         // Ring
@@ -101,8 +106,8 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(poseRingL.Position))
             {
-                Debug.Log("Annulaire gauche");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.LEFT, Fingering.FOUR);
             }
         }
         // Pinky
@@ -110,12 +115,10 @@ public class FingerDetection : MonoBehaviour
         {
             if (isCollision(posePinkyL.Position))
             {
-                Debug.Log("Auriculaire gauche");
-                key.GetComponent<MeshRenderer>().material.color = keyModifiedColor;
+                setColor();
+                setKeyStatus(true, Hand.LEFT, Fingering.FIVE);
             }
         }
-
-
     }
 
     private bool isCollision(Vector3 current)
@@ -133,5 +136,32 @@ public class FingerDetection : MonoBehaviour
                 &&
                 (current.z >= (button.z - halfDeep)) && (current.z <= (button.z + halfDeep))
             );
+    }
+
+    private void setColor()
+    {
+        if (!key.GetComponent<KeyStates>().isPlayerMode)
+        {
+            key.GetComponent<MeshRenderer>().material.color = keyNotPlayerModeColor;
+        }
+
+        else if (key.GetComponent<KeyStates>()._isError)
+        {
+            key.GetComponent<MeshRenderer>().material.color = keyErrorColor;
+        }
+
+        else
+        {
+            key.GetComponent<MeshRenderer>().material.color = keyCorrectColor;
+        }
+    }
+
+    private void setKeyStatus(bool isPressed, Hand currentHand, Fingering currentFingering)
+    {
+        // changement de l'état de la touche
+        key.GetComponent<KeyStates>().isKeyPressed = isPressed;
+        // ajout du déclencheur de l'action
+        key.GetComponent<KeyStates>().keyCurrentFinger = currentFingering;
+        key.GetComponent<KeyStates>().keyCurrentHand = currentHand;
     }
 }
