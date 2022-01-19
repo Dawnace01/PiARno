@@ -7,11 +7,18 @@ using System.IO;
 
 public class ParseSheet : MonoBehaviour
 {
-
-    public string fileName;
-    public ArrayList tab = new ArrayList();
+    /** 
+     * (au format .json) 
+     * **/
+    public string fileName; 
 
     public GameObject prefabTile = null;
+
+    public float ConstHeightBloc = 1f;
+
+    private int iterator = 0;
+
+    public double x_scale_key = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +30,14 @@ public class ParseSheet : MonoBehaviour
         foreach (JSONNode item in json["content"][2])
         {
             foreach (JSONNode currentHandprint in item["currentHandprint"])
-                tab.Add(Instantiate(prefabTile, new Vector3(int.Parse(currentHandprint["key"].Value) / 100, 0, 0), Quaternion.identity));
+            {
+                if (int.Parse(currentHandprint["duration"].Value) > 0) {
+                    float y_scale_temp = ConstHeightBloc * int.Parse(currentHandprint["duration"].Value);
+                    GameObject temp = Instantiate(prefabTile, new Vector3((float)x_scale_key * int.Parse(currentHandprint["key"].Value), iterator + (y_scale_temp / 2), 0), Quaternion.identity);
+                    temp.transform.localScale = new Vector3((float)x_scale_key, y_scale_temp, temp.transform.localScale.z);
+                }
+            }
+            iterator++;
         }
     }
 
@@ -34,8 +48,7 @@ public class ParseSheet : MonoBehaviour
 
     private string Read()
     {
-        Debug.LogWarning(Application.dataPath + "/txtFile/" + fileName);
-        StreamReader sr = new StreamReader(Application.dataPath + "/txtFile/" + fileName);
+        StreamReader sr = new StreamReader(Application.dataPath + "/txtFile/" + fileName + ".json");
         string content = sr.ReadToEnd();
         sr.Close();
 
