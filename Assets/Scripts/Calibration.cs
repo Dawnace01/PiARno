@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonInteraction : MonoBehaviour
+public class Calibration : MonoBehaviour
 {
+    public GameObject piano;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,9 @@ public class ButtonInteraction : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void mescouilles()
+    {
     }
 }
