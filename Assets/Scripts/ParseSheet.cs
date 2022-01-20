@@ -55,9 +55,11 @@ public class ParseSheet : MonoBehaviour
     #region privates methodes
     private string Read()
     {
-        StreamReader sr = new StreamReader(Application.dataPath + "/txtFile/" + fileName + ".json");
+        StreamReader sr = new StreamReader(Application.dataPath + "/StreamingAssets/txtFile/" + fileName + ".json");
         string content = sr.ReadToEnd();
         sr.Close();
+
+        Debug.Log(Application.dataPath + "/StreamingAssets/txtFile/" + fileName + ".json");
 
         return content;
     }
