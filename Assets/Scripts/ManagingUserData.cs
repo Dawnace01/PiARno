@@ -21,7 +21,7 @@ public class ManagingUserData : MonoBehaviour
 
     private string Read()
     {
-        StreamReader sr = new StreamReader(Application.dataPath + "StreamingAssets/UserData/" + fileName + ".json");
+        StreamReader sr = new StreamReader(Application.dataPath + "/StreamingAssets/UserData/" + fileName + ".json");
         string content = sr.ReadToEnd();
         sr.Close();
 
