@@ -9,11 +9,9 @@ using PianoUtilities;
 
 public class ParseSheet : MonoBehaviour
 {
-    /** 
-     * (au format .json) 
-     * **/
-    public string fileName; 
-
+    #region public variables
+    public string fileName;
+    
     public GameObject prefabTile = null;
 
     public float ConstHeightBloc = 1f;
@@ -28,11 +26,16 @@ public class ParseSheet : MonoBehaviour
     public bool isActive = false;
 
     [SerializeField]
-    [Range(1f, 20f)]
+    [Range(0f, 20f)]
     float speed = 15f;
 
     public GameObject[] tabOfKeys;
 
+    public Color leftHandBlocColor = new Color(109, 157, 228);
+    public Color rightHandBlocColor = new Color(255, 158, 0);
+    #endregion
+
+    #region initial procedures
     // Start is called before the first frame update
     void Start()
     {
@@ -51,9 +54,9 @@ public class ParseSheet : MonoBehaviour
                     GameObject temp;
 
                     if (isBlack(int.Parse(currentHandprint["key"].Value)))
-                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) + (float)x_scale_key_black - (float)0.4965, spacing + (y_scale_temp / 2), .7095f + 0.06f), Quaternion.identity, parent.transform);
+                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) + (float)x_scale_key_black - (float)0.4965, spacing + (y_scale_temp / 2) + 1, .6595f + 0.06f), Quaternion.identity, parent.transform);
                     else
-                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) - (float)0.4965, spacing + (y_scale_temp / 2), .7095f + 0.06f), Quaternion.identity, parent.transform);
+                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) - (float)0.4965, spacing + (y_scale_temp / 2) + 1, .6595f + 0.06f), Quaternion.identity, parent.transform);
 
                     temp.name = currentHandprint["name"][1].Value;
                     // récupération du doigt
@@ -80,9 +83,11 @@ public class ParseSheet : MonoBehaviour
                     {
                         case "RIGHT":
                             temp.GetComponent<Tile>().hand = Hand.RIGHT;
+                            temp.GetComponent<MeshRenderer>().material.color = rightHandBlocColor;
                             break;
                         case "LEFT":
                             temp.GetComponent<Tile>().hand = Hand.LEFT;
+                            temp.GetComponent<MeshRenderer>().material.color = leftHandBlocColor;
                             break;
                     }
 
@@ -94,9 +99,6 @@ public class ParseSheet : MonoBehaviour
             }
             spacing += ConstHeightBloc;
         }
-
-        
-
     }
 
     // Update is called once per frame
@@ -107,7 +109,9 @@ public class ParseSheet : MonoBehaviour
             parent.transform.Translate(Vector3.down * speed / 10 * Time.deltaTime);
         }
     }
+    #endregion
 
+    #region privates methodes
     private string Read()
     {
         StreamReader sr = new StreamReader(Application.dataPath + "/txtFile/" + fileName + ".json");
@@ -142,7 +146,9 @@ public class ParseSheet : MonoBehaviour
             return (float)x_scale_key_white + getXPosition(numberOfTheKey - 1);
         return (float)x_scale_key_white / 2;
     }
+    #endregion
 
+    #region public methods
     public void toggleSheet()
     {
         isActive = !isActive;
@@ -155,4 +161,5 @@ public class ParseSheet : MonoBehaviour
             go.GetComponent<KeyStates>().isPlayerMode = !go.GetComponent<KeyStates>().isPlayerMode;
         }
     }
+    #endregion
 }

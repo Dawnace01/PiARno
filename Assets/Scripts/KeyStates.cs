@@ -35,6 +35,8 @@ public class KeyStates : MonoBehaviour
 
     public GameObject key;
 
+    private AudioSource _source;
+
     /** colors used **/
     public Color keyOriginalColor = Color.white;
     public Color keyCorrectColor = Color.cyan;
@@ -44,19 +46,27 @@ public class KeyStates : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _source = key.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        setColor();
         _isError = isError();
+        setColor();
     }
 
     IEnumerator wait()
     {
+        setColor();
         _isError = isError();
-        yield return new WaitForSeconds(.5f);
+
+        if (isProgrammedKeyPressed && !_source.isPlaying)
+            _source.Play();
+
+        else if (!isProgrammedKeyPressed && _source.isPlaying)
+            _source.Stop();
+        yield return new WaitForSeconds(.1f);
         StartCoroutine("wait");
     }
 
@@ -70,11 +80,38 @@ public class KeyStates : MonoBehaviour
             || (keyCurrentFinger != keyProgrammedFinger);
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        string[] tabNames;
+        string name = collision.gameObject.name;
+        if (this.name.Contains("/"))
+        {
+            tabNames = this.name.Split('/');
+            foreach (string n in tabNames)
+            {
+                if (n.Equals(name))
+                {
+                    _source.Play();
+                }
+            }
+        }
+        else if (name.Equals(this.name))
+        {
+            _source.Play();
+        }
+        else
+        {
+            _source.Stop();
+        }
+    }
+
     public void OnCollisionExit(Collision collision)
     {
         isProgrammedKeyPressed = false;
         keyProgrammedFinger = Fingering.NONE;
         keyProgrammedHand = Hand.NONE;
+
+        _source.Stop();
     }
 
     public void OnCollisionStay(Collision collision)
@@ -91,6 +128,11 @@ public class KeyStates : MonoBehaviour
                     isProgrammedKeyPressed = true;
                     keyProgrammedFinger = collision.gameObject.GetComponent<Tile>().finger;
                     keyProgrammedHand = collision.gameObject.GetComponent<Tile>().hand;
+
+                    if (!_source.isPlaying)
+                    {
+                        _source.Play();
+                    }
                 }
             }
         }
@@ -99,6 +141,11 @@ public class KeyStates : MonoBehaviour
             isProgrammedKeyPressed = true;
             keyProgrammedFinger = collision.gameObject.GetComponent<Tile>().finger;
             keyProgrammedHand = collision.gameObject.GetComponent<Tile>().hand;
+
+            if (!_source.isPlaying)
+            {
+                _source.Play();
+            }
         }
         else
         {
