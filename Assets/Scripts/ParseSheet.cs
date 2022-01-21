@@ -25,6 +25,8 @@ public class ParseSheet : MonoBehaviour
 
     public bool isActive = false;
 
+    public float totalHeight;
+
     [SerializeField]
     [Range(0f, 20f)]
     float speed = 15f;
@@ -39,15 +41,20 @@ public class ParseSheet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
+        if (isActive && parent.transform.position.y > (totalHeight * -1))
         {
             parent.transform.Translate(Vector3.down * speed / 10 * Time.deltaTime);
+        }
+        else if (totalHeight != 0 && parent.transform.position.y <= -totalHeight)
+        {
+            Debug.Log("Fin de la partition !");
+            parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
+            isActive = false;
         }
     }
     #endregion
@@ -87,6 +94,22 @@ public class ParseSheet : MonoBehaviour
             return (float)x_scale_key_white + getXPosition(numberOfTheKey - 1);
         return (float)x_scale_key_white / 2;
     }
+
+    private float getTotalHeight()
+    {
+        float maxHeight = 0f;
+
+
+        foreach (Transform t in this.parent.GetComponentsInChildren<Transform>())
+        {
+            if (t.position.y + (t.localScale.y / 2) > maxHeight)
+            {
+                maxHeight = t.position.y + (t.localScale.y / 2);
+            }
+        }
+
+        return maxHeight;
+    }
     #endregion
 
     #region public methods
@@ -105,6 +128,8 @@ public class ParseSheet : MonoBehaviour
 
     public void startGame(string partition)
     {
+        parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
+
         fileName = partition;
         float spacing = ConstHeightBloc;
         string str = Read();
@@ -167,6 +192,9 @@ public class ParseSheet : MonoBehaviour
             }
             spacing += ConstHeightBloc;
         }
+
+        totalHeight = getTotalHeight();
+        Debug.Log(totalHeight);
     }
     #endregion
 }
