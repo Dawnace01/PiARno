@@ -32,6 +32,9 @@ public class KeyStates : MonoBehaviour
     public Fingering keyCurrentFinger = Fingering.NONE, keyProgrammedFinger = Fingering.NONE;
     public bool _isError = true;
     public bool isPlayerMode = false; // si faux, la correction d'erreur est stoppée (mode "jeu libre")
+    public int cptError = 0;
+    public int cptTotal = 0;
+    public bool isCollision = false;
 
     public GameObject key;
 
@@ -52,8 +55,13 @@ public class KeyStates : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         _isError = isError();
+        if (_isError)
+            cptError++;
         setColor();
+        if (_isError && !isCollision)
+            cptTotal++;
     }
 
     IEnumerator wait()
@@ -82,6 +90,7 @@ public class KeyStates : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        isCollision = true;
         string[] tabNames;
         string name = collision.gameObject.name;
         if (this.name.Contains("/"))
@@ -103,10 +112,12 @@ public class KeyStates : MonoBehaviour
         {
             _source.Stop();
         }
+        
     }
 
     public void OnCollisionExit(Collision collision)
     {
+        isCollision = false;
         isProgrammedKeyPressed = false;
         keyProgrammedFinger = Fingering.NONE;
         keyProgrammedHand = Hand.NONE;
@@ -135,6 +146,7 @@ public class KeyStates : MonoBehaviour
                     }
                 }
             }
+
         }
         else if (name.Equals(this.name))
         {
@@ -153,6 +165,8 @@ public class KeyStates : MonoBehaviour
             keyProgrammedFinger = Fingering.NONE;
             keyProgrammedHand = Hand.NONE;
         }
+        cptTotal++;
+            
     }
 
     private void setColor()

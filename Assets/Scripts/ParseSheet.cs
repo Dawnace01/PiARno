@@ -11,6 +11,9 @@ public class ParseSheet : MonoBehaviour
 {
     #region public variables
     public string fileName;
+    public int cptTotal = 0;
+    public int cptError = 0;
+    public float score = 0;
 
     public GameObject prefabTile = null;
 
@@ -49,6 +52,13 @@ public class ParseSheet : MonoBehaviour
         {
             parent.transform.Translate(Vector3.down * speed / 10 * Time.deltaTime);
         }
+        foreach(GameObject key in tabOfKeys)
+        {
+            cptError += key.GetComponent<KeyStates>().cptError;
+            cptTotal += key.GetComponent<KeyStates>().cptTotal;
+        }
+        score = cptError / cptTotal;
+        Debug.Log(score);
     }
     #endregion
 
@@ -165,6 +175,7 @@ public class ParseSheet : MonoBehaviour
                         temp.transform.localScale = new Vector3((float)x_scale_key_black, y_scale_temp, temp.transform.localScale.z);
                     else
                         temp.transform.localScale = new Vector3((float)x_scale_key_white, y_scale_temp, temp.transform.localScale.z);
+
                 }
             }
             spacing += ConstHeightBloc;

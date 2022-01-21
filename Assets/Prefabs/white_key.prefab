@@ -239,8 +239,9 @@ MonoBehaviour:
   keyProgrammedHand: 2
   keyCurrentFinger: 5
   keyProgrammedFinger: 5
-  _isError: 1
+  _isError: 0
   isPlayerMode: 0
+  cptError: 0
   key: {fileID: 5842689426169367488}
   keyOriginalColor: {r: 1, g: 1, b: 1, a: 1}
   keyCorrectColor: {r: 0, g: 1, b: 1, a: 1}
