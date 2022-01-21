@@ -59,8 +59,6 @@ public class ParseSheet : MonoBehaviour
         string content = sr.ReadToEnd();
         sr.Close();
 
-        Debug.Log(Application.dataPath + "/StreamingAssets/txtFile/" + fileName + ".json");
-
         return content;
     }
 
