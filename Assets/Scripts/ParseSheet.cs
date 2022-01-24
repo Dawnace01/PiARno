@@ -42,8 +42,13 @@ public class ParseSheet : MonoBehaviour
     #region initial procedures
     // Start is called before the first frame update
     void Start()
+<<<<<<< HEAD
     { 
         partitionBlocsCurrent = new List<GameObject>();
+=======
+    {
+        togglePlayerMode();
+>>>>>>> 7adee984a27e4121497b8e7c69afaa4228fdf76d
     }
 
     // Update is called once per frame
