@@ -35,12 +35,15 @@ public class ParseSheet : MonoBehaviour
 
     public Color leftHandBlocColor = new Color(109, 157, 228);
     public Color rightHandBlocColor = new Color(255, 158, 0);
+
+    private List<GameObject> partitionBlocsCurrent;
     #endregion
 
     #region initial procedures
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+        partitionBlocsCurrent = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -136,6 +139,18 @@ public class ParseSheet : MonoBehaviour
 
         JSONNode json = JSON.Parse(str);
 
+
+        if (partitionBlocsCurrent.Count > 0)
+        {
+            foreach (GameObject element in partitionBlocsCurrent)
+            {
+                Destroy(element);
+            }
+            partitionBlocsCurrent.Clear();
+        }
+
+        partitionBlocsCurrent = new List<GameObject>();
+
         foreach (JSONNode item in json["content"][2])
         {
             foreach (JSONNode currentHandprint in item["currentHandprint"])
@@ -151,6 +166,7 @@ public class ParseSheet : MonoBehaviour
                     else
                         temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) - (float)0.4965, spacing + (y_scale_temp / 2) + 1, .6595f + 0.06f), Quaternion.identity, parent.transform);
 
+                    partitionBlocsCurrent.Add(temp);
                     temp.name = currentHandprint["name"][1].Value;
                     // récupération du doigt
                     switch (int.Parse(currentHandprint["finger"].Value))
@@ -195,6 +211,7 @@ public class ParseSheet : MonoBehaviour
 
         totalHeight = getTotalHeight();
         Debug.Log(totalHeight);
+        Debug.Log(partitionBlocsCurrent);
     }
     #endregion
 }
