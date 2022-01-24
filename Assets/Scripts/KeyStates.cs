@@ -45,6 +45,7 @@ public class KeyStates : MonoBehaviour
 
     public int cptError = 0;
     public int cptTotal = 0;
+    public bool isCollision = false;
 
     // Start is called before the first frame update
     void Start()
@@ -90,6 +91,7 @@ public class KeyStates : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        isCollision = true;
         string[] tabNames;
         string name = collision.gameObject.name;
         if (this.name.Contains("/"))
@@ -115,6 +117,7 @@ public class KeyStates : MonoBehaviour
 
     public void OnCollisionExit(Collision collision)
     {
+        isCollision = false;
         isProgrammedKeyPressed = false;
         keyProgrammedFinger = Fingering.NONE;
         keyProgrammedHand = Hand.NONE;
