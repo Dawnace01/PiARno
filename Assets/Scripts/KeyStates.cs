@@ -43,6 +43,9 @@ public class KeyStates : MonoBehaviour
     public Color keyErrorColor = Color.red;
     public Color keyNotPlayerModeColor = new Color(239, 156, 2);
 
+    public int cptError = 0;
+    public int cptTotal = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +57,11 @@ public class KeyStates : MonoBehaviour
     {
         _isError = isError();
         setColor();
+        if (_isError)
+            cptError++;
+        setColor();
+        if (_isError && !isCollision)
+            cptTotal++;
     }
 
     IEnumerator wait()
@@ -153,6 +161,7 @@ public class KeyStates : MonoBehaviour
             keyProgrammedFinger = Fingering.NONE;
             keyProgrammedHand = Hand.NONE;
         }
+        
     }
 
     private void setColor()
