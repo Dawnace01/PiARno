@@ -60,7 +60,6 @@ public class KeyStates : MonoBehaviour
         setColor();
         if (_isError)
             cptError++;
-        setColor();
         if (_isError && !isCollision)
             cptTotal++;
     }
@@ -91,7 +90,7 @@ public class KeyStates : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        isCollision = true;
+        
         string[] tabNames;
         string name = collision.gameObject.name;
         if (this.name.Contains("/"))
@@ -102,6 +101,7 @@ public class KeyStates : MonoBehaviour
                 if (n.Equals(name))
                 {
                     _source.Play();
+                    isCollision = true;
                 }
             }
         }
