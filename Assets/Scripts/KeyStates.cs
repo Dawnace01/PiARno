@@ -43,6 +43,10 @@ public class KeyStates : MonoBehaviour
     public Color keyErrorColor = Color.red;
     public Color keyNotPlayerModeColor = new Color(239, 156, 2);
 
+    public int cptError = 0;
+    public int cptTotal = 0;
+    public bool isCollision = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +58,11 @@ public class KeyStates : MonoBehaviour
     {
         _isError = isError();
         setColor();
+        if (_isError)
+            cptError++;
+        setColor();
+        if (_isError && !isCollision)
+            cptTotal++;
     }
 
     IEnumerator wait()
@@ -82,6 +91,7 @@ public class KeyStates : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        isCollision = true;
         string[] tabNames;
         string name = collision.gameObject.name;
         if (this.name.Contains("/"))
@@ -107,6 +117,7 @@ public class KeyStates : MonoBehaviour
 
     public void OnCollisionExit(Collision collision)
     {
+        isCollision = false;
         isProgrammedKeyPressed = false;
         keyProgrammedFinger = Fingering.NONE;
         keyProgrammedHand = Hand.NONE;
@@ -153,6 +164,7 @@ public class KeyStates : MonoBehaviour
             keyProgrammedFinger = Fingering.NONE;
             keyProgrammedHand = Hand.NONE;
         }
+        
     }
 
     private void setColor()
