@@ -41,6 +41,7 @@ public class ParseSheet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        togglePlayerMode();
     }
 
     // Update is called once per frame
