@@ -59,9 +59,14 @@ public class KeyStates : MonoBehaviour
         _isError = isError();
         setColor();
         if (_isError)
+        {
             cptError++;
-        if (_isError && !isCollision)
             cptTotal++;
+        }
+        else if (isCollision)
+        {
+            cptTotal++;
+        }
     }
 
     IEnumerator wait()

@@ -37,6 +37,10 @@ public class ParseSheet : MonoBehaviour
     public Color rightHandBlocColor = new Color(255, 158, 0);
 
     private List<GameObject> partitionBlocsCurrent;
+
+    public float score = 0;
+    public float scoreError = 0;
+    public float scoreTotal = 0;
     #endregion
 
     #region initial procedures
@@ -59,6 +63,7 @@ public class ParseSheet : MonoBehaviour
             Debug.Log("Fin de la partition !");
             parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
             isActive = false;
+            calcScore();
         }
     }
     #endregion
@@ -128,6 +133,17 @@ public class ParseSheet : MonoBehaviour
         {
             go.GetComponent<KeyStates>().isPlayerMode = !go.GetComponent<KeyStates>().isPlayerMode;
         }
+    }
+
+    public void calcScore()
+    {
+        foreach (GameObject go in tabOfKeys)
+        {    
+            scoreError += go.GetComponent<KeyStates>().cptError;
+            scoreTotal += go.GetComponent<KeyStates>().cptTotal;
+        }
+        score = scoreError / scoreTotal;
+        
     }
 
     public void startGame(string partition)
