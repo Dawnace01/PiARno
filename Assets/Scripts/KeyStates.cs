@@ -23,7 +23,6 @@ namespace PianoUtilities
     }
 }
 
-
 public class KeyStates : MonoBehaviour
 {
     [SerializeField]
@@ -51,6 +50,7 @@ public class KeyStates : MonoBehaviour
     void Start()
     {
         _source = key.GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -171,22 +171,22 @@ public class KeyStates : MonoBehaviour
     {
         if (!isPlayerMode && isKeyPressed)
         {
-            key.GetComponent<MeshRenderer>().material.color = keyNotPlayerModeColor;
+            this.GetComponentInParent<MeshRenderer>().material.color = keyNotPlayerModeColor;
         }
 
         else if (_isError)
         {
-            key.GetComponent<MeshRenderer>().material.color = keyErrorColor;
+            this.GetComponentInParent<MeshRenderer>().material.color = keyErrorColor;
         }
 
         else if (!_isError && isKeyPressed)
         {
-            key.GetComponent<MeshRenderer>().material.color = keyCorrectColor;
+            this.GetComponentInParent<MeshRenderer>().material.color = keyCorrectColor;
         }
 
         else
         {
-            key.GetComponent<MeshRenderer>().material.color = keyOriginalColor;
+            this.GetComponentInParent<MeshRenderer>().material.color = keyOriginalColor;
         }
     }
 }
