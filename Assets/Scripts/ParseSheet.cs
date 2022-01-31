@@ -46,7 +46,8 @@ public class ParseSheet : MonoBehaviour
     #region initial procedures
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        
         partitionBlocsCurrent = new List<GameObject>();
         togglePlayerMode();
     }
@@ -57,6 +58,10 @@ public class ParseSheet : MonoBehaviour
         if (isActive && parent.transform.position.y > (totalHeight * -1))
         {
             parent.transform.Translate(Vector3.down * speed / 10 * Time.deltaTime);
+            score = 0;
+            scoreError = 0;
+            scoreTotal = 0;
+
         }
         else if (totalHeight != 0 && parent.transform.position.y <= -totalHeight)
         {
