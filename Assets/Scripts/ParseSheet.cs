@@ -235,5 +235,17 @@ public class ParseSheet : MonoBehaviour
         Debug.Log(totalHeight);
         Debug.Log(partitionBlocsCurrent);
     }
+
+    public void clearPlace()
+    {
+        if (partitionBlocsCurrent.Count > 0)
+        {
+            foreach (GameObject element in partitionBlocsCurrent)
+            {
+                Destroy(element);
+            }
+            partitionBlocsCurrent.Clear();
+        }
+    }
     #endregion
 }
