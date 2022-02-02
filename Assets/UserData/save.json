@@ -1,3 +1,7 @@
-{"Name":"Natsuko",
+{
+"Name":"Natsuko",
 "Niveau": 1,
-"Game" : []}
+"Game" : [
+    {"Title":"Hit the road Jack", "Score":"Bien", "Date":"1643808440"},
+    {"Title":"Mad World", "Score":"Parfait", "Date":"1643808440"}]
+}
