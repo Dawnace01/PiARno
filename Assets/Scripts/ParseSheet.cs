@@ -6,6 +6,7 @@ using SimpleJSON;
 using System.IO;
 
 using PianoUtilities;
+using TMPro;
 
 public class ParseSheet : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class ParseSheet : MonoBehaviour
     public float score = 0;
     public float scoreError = 0;
     public float scoreTotal = 0;
+
+    public TextMeshPro debugTxt;
     #endregion
 
     #region initial procedures
@@ -69,6 +72,7 @@ public class ParseSheet : MonoBehaviour
             parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
             isActive = false;
             calcScore();
+            afficheScore();
         }
     }
     #endregion
@@ -153,6 +157,7 @@ public class ParseSheet : MonoBehaviour
 
     public void startGame(string partition)
     {
+        debugTxt.enabled = false;
         parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
 
         fileName = partition;
@@ -230,6 +235,11 @@ public class ParseSheet : MonoBehaviour
             }
             spacing += ConstHeightBloc;
         }
+        foreach (GameObject go in tabOfKeys)
+        {
+            go.GetComponent<KeyStates>().cptError = 0;
+            go.GetComponent<KeyStates>().cptTotal = 0;
+        }
 
         totalHeight = getTotalHeight();
         Debug.Log(totalHeight);
@@ -246,6 +256,20 @@ public class ParseSheet : MonoBehaviour
             }
             partitionBlocsCurrent.Clear();
         }
+    }
+
+    public void afficheScore()
+    {
+        debugTxt.enabled = true;
+        if (score < 0.25)
+            debugTxt.SetText("bien joué pd");
+        else if (score < 0.50)
+            debugTxt.SetText("pas loin chef");
+        else if (score < 0.75)
+            debugTxt.SetText("raté, essaie encore");
+        else if (score < 1)
+            debugTxt.SetText("ma grand mère aurait fait mieux");
+
     }
     #endregion
 }
