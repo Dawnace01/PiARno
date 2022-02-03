@@ -44,6 +44,7 @@ public class ParseSheet : MonoBehaviour
     public float scoreTotal = 0;
 
     public TextMeshPro debugTxt;
+    public GameObject plate;
     #endregion
 
     #region initial procedures
@@ -158,6 +159,7 @@ public class ParseSheet : MonoBehaviour
     public void startGame(string partition)
     {
         debugTxt.enabled = false;
+        plate.active = false;
         parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
 
         fileName = partition;
@@ -261,6 +263,7 @@ public class ParseSheet : MonoBehaviour
     public void afficheScore()
     {
         debugTxt.enabled = true;
+        plate.active = true;
         if (score < 0.25)
             debugTxt.SetText("bien joué pd");
         else if (score < 0.50)
