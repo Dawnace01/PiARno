@@ -17,9 +17,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/FingerTrackingTest.unity
     guid: 392a76c2ea229f2448669245b5f014c3
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/Piano_Blocs 1.unity
+    guid: f8c8ee5e453c20f4992d5bd0f9be2524
   - enabled: 1
-    path: Assets/Scenes/Piano_Blocs.unity
-    guid: eeddaa2a869ab5045b53a56b7b6cc2bd
+    path: Assets/Scenes/Settings.unity
+    guid: 613ab24902b80e5429116141406f513c
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

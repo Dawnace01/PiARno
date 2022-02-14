@@ -108,7 +108,7 @@ public class FingerDetection : MonoBehaviour
 
     private bool isCollision(Vector3 current)
     {
-        Vector3 button = key.transform.position;
+        Vector3 button = key.transform.localPosition;
 
         float halfWidth = key.transform.localScale.x / 2,
             halfHeight = key.transform.localScale.y / 2,

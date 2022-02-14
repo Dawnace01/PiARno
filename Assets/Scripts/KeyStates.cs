@@ -174,24 +174,55 @@ public class KeyStates : MonoBehaviour
 
     private void setColor()
     {
+        MeshRenderer tempRender;
         if (!isPlayerMode && isKeyPressed)
         {
-            key.GetComponent<MeshRenderer>().material.color = keyNotPlayerModeColor;
+            if (!key.TryGetComponent<MeshRenderer>(out tempRender))
+            {
+                tempRender = key.GetComponentInChildren<MeshRenderer>();
+            }
+
+            tempRender.material.color = keyNotPlayerModeColor;
         }
 
         else if (_isError)
         {
-            key.GetComponent<MeshRenderer>().material.color = keyErrorColor;
+            if (!key.TryGetComponent<MeshRenderer>(out tempRender))
+            {
+                tempRender = key.GetComponentInChildren<MeshRenderer>();
+            }
+
+            tempRender.material.color = keyErrorColor;
         }
 
         else if (!_isError && isKeyPressed)
         {
-            key.GetComponent<MeshRenderer>().material.color = keyCorrectColor;
+            if (!key.TryGetComponent<MeshRenderer>(out tempRender))
+            {
+                tempRender = key.GetComponentInChildren<MeshRenderer>();
+            }
+
+            tempRender.material.color = keyCorrectColor;
         }
 
         else
         {
-            key.GetComponent<MeshRenderer>().material.color = keyOriginalColor;
+            if (!key.TryGetComponent<MeshRenderer>(out tempRender))
+            {
+                tempRender = key.GetComponentInChildren<MeshRenderer>();
+            }
+
+            tempRender.material.color = keyOriginalColor;
         }
+    }
+
+    public void setKeyPressed()
+    {
+        isKeyPressed = true;
+    }
+
+    public void setNotKeyPressed()
+    {
+        isKeyPressed = false;
     }
 }
