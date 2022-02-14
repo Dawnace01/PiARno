@@ -259,6 +259,10 @@ public class ParseSheet : MonoBehaviour
             }
             partitionBlocsCurrent.Clear();
         }
+        if(isActive == true)
+        {
+            isActive = !isActive;
+        }
     }
 
     public void afficheScore()
