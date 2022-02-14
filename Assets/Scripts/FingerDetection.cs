@@ -11,12 +11,16 @@ using Microsoft.MixedReality.Toolkit.Input;
 using PianoUtilities;
 
 public class FingerDetection : MonoBehaviour
-{
+{ 
     public GameObject key;
     MixedRealityPose poseThumbR, poseIndexR, poseMiddleR, poseRingR, posePinkyR;
     MixedRealityPose poseThumbL, poseIndexL, poseMiddleL, poseRingL, posePinkyL;
 
-    private void Start(){  }
+    private void Start()
+    {
+        //key = this.transform.parent.gameObject;
+        Debug.LogWarning(key.name);
+    }
 
     private void Update()
     {
@@ -124,8 +128,7 @@ public class FingerDetection : MonoBehaviour
     }
 
     private void setKeyStatus(bool isPressed, Hand currentHand, Fingering currentFingering)
-    {
-        // changement de l'état de la touche
+    {        
         key.GetComponent<KeyStates>().isKeyPressed = isPressed;
         // ajout du déclencheur de l'action
         key.GetComponent<KeyStates>().keyCurrentFinger = currentFingering;
