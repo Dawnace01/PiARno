@@ -156,9 +156,10 @@ public class ParseSheet : MonoBehaviour
         
     }
 
+    [System.Obsolete]
     public void startGame(string partition)
     {
-        debugTxt.enabled = false;
+        //debugTxt.enabled = false;
         plate.active = false;
         parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
 
@@ -257,6 +258,10 @@ public class ParseSheet : MonoBehaviour
                 Destroy(element);
             }
             partitionBlocsCurrent.Clear();
+        }
+        if(isActive == true)
+        {
+            isActive = !isActive;
         }
     }
 
