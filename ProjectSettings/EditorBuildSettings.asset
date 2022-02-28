@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/FingerTrackingTest.unity
     guid: 392a76c2ea229f2448669245b5f014c3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Piano_Blocs.unity
     guid: eeddaa2a869ab5045b53a56b7b6cc2bd
   m_configObjects:
