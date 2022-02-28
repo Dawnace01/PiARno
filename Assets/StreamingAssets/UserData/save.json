@@ -1,3 +1,13 @@
 {"Name":"Natsuko",
 "Niveau": 500,
-"Game" : []}
+"Game" : [{
+    "Song" : "Hit the road Jack",
+    "Score" : 1200,
+    "Date" : 1646063049
+},{
+    "Song" : "Hit the road Jack",
+    "Score" : 1200,
+    "Date" : 1646063049
+}
+]
+}

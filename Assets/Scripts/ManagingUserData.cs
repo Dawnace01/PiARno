@@ -23,13 +23,20 @@ public class ManagingUserData : MonoBehaviour
 
         userNameAndLvl.text = parsed.GetValueOrDefault("Name", "Guest") + "\nLvl: " + parsed.GetValueOrDefault("Niveau", "None");
 
-        //Only for test
-        for (int i = 0; i < 20; i++)
+        foreach(JSONNode game in parsed.GetValueOrDefault("Game", "none"))
         {
+
+            Debug.Log("try read : " + game.GetValueOrDefault("Song", "Bruh"));
             GameObject temp;
             temp = Instantiate(prefabElementList, listParent.transform);
+            temp.GetComponent<TextMesh>().text = game.GetValueOrDefault("Song", "Bruh");
             listParent.UpdateCollection();
         }
+
+
+        
+
+
     }
 
     private string Read()
