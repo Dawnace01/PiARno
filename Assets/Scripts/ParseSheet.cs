@@ -159,8 +159,8 @@ public class ParseSheet : MonoBehaviour
     [System.Obsolete]
     public void startGame(string partition)
     {
-        //debugTxt.enabled = false;
-        plate.active = false;
+        debugTxt.enabled = false;
+        plate.SetActive(false);
         parent.transform.position = new Vector3(parent.transform.position.x, 0, parent.transform.position.z);
 
         fileName = partition;
@@ -268,7 +268,7 @@ public class ParseSheet : MonoBehaviour
     public void afficheScore()
     {
         debugTxt.enabled = true;
-        plate.active = true;
+        plate.SetActive(true);
         if (score < 0.25)
             debugTxt.SetText("bien joué pd");
         else if (score < 0.50)
@@ -277,7 +277,6 @@ public class ParseSheet : MonoBehaviour
             debugTxt.SetText("raté, essaie encore");
         else if (score < 1)
             debugTxt.SetText("ma grand mère aurait fait mieux");
-
     }
     #endregion
 }
