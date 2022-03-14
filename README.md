@@ -17,5 +17,8 @@ In this prototype, only the hand tracking and the virtual piano are displayed. O
 *14/02/2022*
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5-f0WfrwTRU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=5-f0WfrwTRU"><img src="https://img.youtube.com/vi/5-f0WfrwTRU/0.jpg" alt="IMAGE ALT TEXT"></a>
+</div>
 
 This first version include a full tracking of each finger and a user interface listing few songs that are completly playable.
