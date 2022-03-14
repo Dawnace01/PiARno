@@ -16,6 +16,6 @@ In this prototype, only the hand tracking and the virtual piano are displayed. O
 ## First Version
 *14/02/2022*
 
-<a href="https://youtu.be/5-f0WfrwTRU" title="Link Title"><img src="https://images-ext-2.discordapp.net/external/0Q5-0xEhmx43YXu6FmCoADWUG90nePEvVS58cx9otbg/https/i.ytimg.com/vi/yg-dM4ml83E/sddefault.jpg" alt="Prototype" /></a>
+<a href="https://youtu.be/5-f0WfrwTRU" title="Link Title"><img src="https://i9.ytimg.com/vi/5-f0WfrwTRU/mq1.jpg?sqp=CKC6vZEG&rs=AOn4CLAmFumaJAJrmVN_2GRlc0uHYCVkwQ" alt="Prototype" /></a>
 
 This first version include a full tracking of each finger and a user interface listing few songs that are completly playable.
