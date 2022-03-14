@@ -7,7 +7,7 @@ An augmented reality software to learn how to play the piano. It's build for Hol
 *18/01/2022*
 
 <div align="center">
-  <a href="https://www.youtube.com/watch?v=yg-dM4ml83E"><img src="https://img.youtube.com/vi/yg-dM4ml83EU/0.jpg" alt="IMAGE ALT TEXT"></a>
+  <a href="https://www.youtube.com/watch?v=yg-dM4ml83E"><img src="https://img.youtube.com/vi/yg-dM4ml83E/0.jpg" alt="IMAGE ALT TEXT"></a>
 </div>
 
 In this prototype, only the hand tracking and the virtual piano are displayed. Our goal here was to show that every finger was tracked and every key worked.
