@@ -25,18 +25,12 @@ public class ManagingUserData : MonoBehaviour
 
         foreach(JSONNode game in parsed.GetValueOrDefault("Game", "none"))
         {
-
             Debug.Log("try read : " + game.GetValueOrDefault("Song", "Bruh"));
             GameObject temp;
             temp = Instantiate(prefabElementList, listParent.transform);
-            temp.GetComponent<TextMesh>().text = game.GetValueOrDefault("Song", "Bruh");
+            //temp.GetComponent<TextMesh>().text = game.GetValueOrDefault("Song", "Bruh");
             listParent.UpdateCollection();
         }
-
-
-        
-
-
     }
 
     private string Read()
