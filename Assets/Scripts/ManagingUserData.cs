@@ -1,5 +1,6 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
 using SimpleJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -25,10 +26,13 @@ public class ManagingUserData : MonoBehaviour
 
         foreach(JSONNode game in parsed.GetValueOrDefault("Game", "none"))
         {
-            Debug.Log("try read : " + game.GetValueOrDefault("Song", "Bruh"));
             GameObject temp;
             temp = Instantiate(prefabElementList, listParent.transform);
-            //temp.GetComponent<TextMesh>().text = game.GetValueOrDefault("Song", "Bruh");
+            temp.transform.Find("Song").gameObject.GetComponent<TextMesh>().text = game.GetValueOrDefault("Song", "Error");
+            temp.transform.Find("Score").gameObject.GetComponent<TextMesh>().text = game.GetValueOrDefault("Score", "Error");
+            string date = game.GetValueOrDefault("Date", "Error");
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(long.Parse(date));
+            temp.transform.Find("Date").gameObject.GetComponent<TextMesh>().text = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
             listParent.UpdateCollection();
         }
     }
