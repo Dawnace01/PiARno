@@ -14,6 +14,7 @@ public class ParseSheet : MonoBehaviour
     public string fileName;
 
     public GameObject prefabTile = null;
+    public GameObject prefabTextFingering = null;
 
     public float ConstHeightBloc = 1f;
 
@@ -90,28 +91,34 @@ public class ParseSheet : MonoBehaviour
 
     private bool isBlack(int numberOfTheKey)
     {
-        int localKeyValue = (numberOfTheKey - 4) % 12 + 1;
-        return numberOfTheKey == 2 ||
-                        localKeyValue == 2 ||
-                        localKeyValue == 4 ||
-                        localKeyValue == 7 ||
-                        localKeyValue == 9 ||
-                        localKeyValue == 11;
+        return tabOfKeys[numberOfTheKey - 1].transform.name.Contains("b") && tabOfKeys[numberOfTheKey - 1].transform.name.Contains("#");
     }
 
     private float getXPosition(int numberOfTheKey)
     {
-
-        if (isBlack(numberOfTheKey))
+        if (numberOfTheKey <= 0 || numberOfTheKey > 88)
         {
-            if (numberOfTheKey > 0)
-                return 0 + getXPosition(numberOfTheKey - 1);
-            return 0;
+            return -1;
         }
 
-        if (numberOfTheKey > 0)
-            return (float)x_scale_key_white + getXPosition(numberOfTheKey - 1);
-        return (float)x_scale_key_white / 2;
+        /*
+
+        float cpt = 0;
+
+        for(int i = 1; i < numberOfTheKey; i++)
+        {
+            if (!isBlack(i)) 
+            {
+                cpt += (float)x_scale_key_white;
+            }
+        }
+
+        if (isBlack(numberOfTheKey))
+            return cpt + (float)x_scale_key_black;
+        return cpt;
+        */
+        
+        return tabOfKeys[numberOfTheKey - 1].transform.position.x;
     }
 
     private float getTotalHeight()
@@ -189,32 +196,43 @@ public class ParseSheet : MonoBehaviour
                 {
                     float y_scale_temp = ConstHeightBloc * int.Parse(currentHandprint["duration"].Value);
 
-                    GameObject temp;
+                    GameObject temp,tempText;
 
+                    /*
                     if (isBlack(int.Parse(currentHandprint["key"].Value)))
-                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) + (float)x_scale_key_black - (float)0.4965, spacing + (y_scale_temp / 2) + 1, .6595f + 0.06f), Quaternion.identity, parent.transform);
+                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) - (float)0.4965, spacing + (y_scale_temp / 2) + 1, .73f), Quaternion.identity, parent.transform);
                     else
-                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) - (float)0.4965, spacing + (y_scale_temp / 2) + 1, .6595f + 0.06f), Quaternion.identity, parent.transform);
+                        temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) - (float)0.4965, spacing + (y_scale_temp / 2) + 1, .73f), Quaternion.identity, parent.transform);
+
+                    */
+                    temp = Instantiate(prefabTile, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)), spacing + (y_scale_temp / 2) + 1, .73f), Quaternion.identity, parent.transform);
+                    tempText = Instantiate(prefabTextFingering, new Vector3(getXPosition(int.Parse(currentHandprint["key"].Value)) + .005f, spacing + 1, .73f), Quaternion.identity, parent.transform);
 
                     partitionBlocsCurrent.Add(temp);
                     temp.name = currentHandprint["name"][1].Value;
+                    tempText.name = "Text" + currentHandprint["name"][1].Value;
                     // récupération du doigt
                     switch (int.Parse(currentHandprint["finger"].Value))
                     {
                         case 1:
                             temp.GetComponent<Tile>().finger = Fingering.ONE;
+                            tempText.GetComponentInChildren<TextMeshPro>().SetText("1");
                             break;
                         case 2:
                             temp.GetComponent<Tile>().finger = Fingering.TWO;
+                            tempText.GetComponentInChildren<TextMeshPro>().SetText("2");
                             break;
                         case 3:
                             temp.GetComponent<Tile>().finger = Fingering.THREE;
+                            tempText.GetComponentInChildren<TextMeshPro>().SetText("3");
                             break;
                         case 4:
                             temp.GetComponent<Tile>().finger = Fingering.FOUR;
+                            tempText.GetComponentInChildren<TextMeshPro>().SetText("4");
                             break;
                         case 5:
                             temp.GetComponent<Tile>().finger = Fingering.FIVE;
+                            tempText.GetComponentInChildren<TextMeshPro>().SetText("5");
                             break;
                     }
                     // récupération de la main
@@ -238,15 +256,18 @@ public class ParseSheet : MonoBehaviour
             }
             spacing += ConstHeightBloc;
         }
+        
         foreach (GameObject go in tabOfKeys)
         {
             go.GetComponent<KeyStates>().cptError = 0;
             go.GetComponent<KeyStates>().cptTotal = 0;
         }
+    
 
         totalHeight = getTotalHeight();
         Debug.Log(totalHeight);
         Debug.Log(partitionBlocsCurrent);
+        
     }
 
     public void clearPlace()
@@ -270,13 +291,13 @@ public class ParseSheet : MonoBehaviour
         debugTxt.enabled = true;
         plate.active = true;
         if (score < 0.25)
-            debugTxt.SetText("bien joué pd");
+            debugTxt.SetText("Excellent score ! Passe tout de suite au niveau supérieur.");
         else if (score < 0.50)
-            debugTxt.SetText("pas loin chef");
+            debugTxt.SetText("Bravo ! Encore un petit effort pour atteindre l'excellence.");
         else if (score < 0.75)
-            debugTxt.SetText("raté, essaie encore");
+            debugTxt.SetText("Aie, quelques erreurs. Rejoue plusieurs fois le niveau ou les précédents.");
         else if (score < 1)
-            debugTxt.SetText("ma grand mère aurait fait mieux");
+            debugTxt.SetText("Que s'est-il passé ? Ce morceau est trop compliqué, essaies-en un moins difficile !");
 
     }
     #endregion

@@ -57,7 +57,7 @@ public class KeyStates : MonoBehaviour
     void Update()
     {
         _isError = isError();
-        setColor();
+        //setColor();
         if (_isError)
         {
             cptError++;

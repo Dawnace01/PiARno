@@ -16,8 +16,4 @@ public class Calibration : MonoBehaviour
     {
         
     }
-
-    public void mescouilles()
-    {
-    }
 }
