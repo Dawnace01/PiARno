@@ -40682,6 +40682,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6742094791252829599, guid: 64790b91b91094d49942373c4e83c237,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6742094791252829599, guid: 64790b91b91094d49942373c4e83c237,
+        type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -72985,9 +72990,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8955270863e594cbf8aa3986912f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listParent: {fileID: 1560971706}
-  prefabElementList: {fileID: 5400536296897605826, guid: 8fb52a6a341121844b0e852a66b2db7d,
-    type: 3}
 --- !u!114 &1560971706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83835,7 +83837,6 @@ GameObject:
   - component: {fileID: 1900971947}
   - component: {fileID: 1900971950}
   - component: {fileID: 1900971949}
-  - component: {fileID: 1900971948}
   m_Layer: 0
   m_Name: 3DTextSelawikLight
   m_TagString: Untagged
@@ -83857,19 +83858,6 @@ Transform:
   m_Father: {fileID: 2116192824}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1900971948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1900971946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9797802d8fbfbb6498750f1ee9de504f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fileName: save
 --- !u!102 &1900971949
 TextMesh:
   serializedVersion: 3
@@ -89493,6 +89481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2116192824}
   - component: {fileID: 2116192825}
+  - component: {fileID: 2116192826}
   m_Layer: 0
   m_Name: ProfileCard
   m_TagString: Untagged
@@ -89556,6 +89545,23 @@ MonoBehaviour:
   cellWidth: 0.02
   cellHeight: 0.032
   assetVersion: 1
+--- !u!114 &2116192826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116192823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9797802d8fbfbb6498750f1ee9de504f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listParent: {fileID: 1560971706}
+  prefabElementList: {fileID: 5400536296897605826, guid: 8fb52a6a341121844b0e852a66b2db7d,
+    type: 3}
+  fileName: save
+  userNameAndLvl: {fileID: 1900971949}
 --- !u!1 &2119881061
 GameObject:
   m_ObjectHideFlags: 0
