@@ -270,13 +270,13 @@ public class ParseSheet : MonoBehaviour
         debugTxt.enabled = true;
         plate.SetActive(true);
         if (score < 0.25)
-            debugTxt.SetText("bien joué pd");
+            debugTxt.SetText("Parfait");
         else if (score < 0.50)
-            debugTxt.SetText("pas loin chef");
+            debugTxt.SetText("Bien");
         else if (score < 0.75)
-            debugTxt.SetText("raté, essaie encore");
+            debugTxt.SetText("Moyen");
         else if (score < 1)
-            debugTxt.SetText("ma grand mère aurait fait mieux");
+            debugTxt.SetText("Dommage");
     }
     #endregion
 }

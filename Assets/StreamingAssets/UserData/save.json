@@ -1,56 +1,12 @@
 {"Name":"Natsuko",
-"Niveau": 500,
+"Niveau": 2,
 "Game" : [{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
+    "Song" : "No Love Dying",
+    "Score" : "Bien",
     "Date" : 1646063049
 },{
     "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
-    "Date" : 1646063049
-},{
-    "Song" : "Hit the road Jack",
-    "Score" : 1200,
+    "Score" : "Parfait",
     "Date" : 1646063049
 }
 ]
