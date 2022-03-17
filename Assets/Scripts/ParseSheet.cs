@@ -291,16 +291,6 @@ public class ParseSheet : MonoBehaviour
         debugTxt.enabled = true;
         plate.SetActive(true);
         if (score < 0.25)
-<<<<<<< HEAD
-            debugTxt.SetText("Excellent score ! Passe tout de suite au niveau supérieur.");
-        else if (score < 0.50)
-            debugTxt.SetText("Bravo ! Encore un petit effort pour atteindre l'excellence.");
-        else if (score < 0.75)
-            debugTxt.SetText("Aie, quelques erreurs. Rejoue plusieurs fois le niveau ou les précédents.");
-        else if (score < 1)
-            debugTxt.SetText("Que s'est-il passé ? Ce morceau est trop compliqué, essaies-en un moins difficile !");
-
-=======
             debugTxt.SetText("Parfait");
         else if (score < 0.50)
             debugTxt.SetText("Bien");
@@ -308,7 +298,6 @@ public class ParseSheet : MonoBehaviour
             debugTxt.SetText("Moyen");
         else if (score < 1)
             debugTxt.SetText("Dommage");
->>>>>>> 8e237f250489be96668f9ce0512dbfa088f0f89f
     }
     #endregion
 }
