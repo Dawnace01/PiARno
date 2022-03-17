@@ -72684,7 +72684,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1941955886}
         m_TargetAssemblyTypeName: ParseSheet, Assembly-CSharp
         m_MethodName: toggleSheet
         m_Mode: 1
@@ -72696,7 +72696,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1941955886}
         m_TargetAssemblyTypeName: ParseSheet, Assembly-CSharp
         m_MethodName: togglePlayerMode
         m_Mode: 1
@@ -86043,12 +86043,12 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1533275840}
         m_TargetAssemblyTypeName: HideIt, Assembly-CSharp
         m_MethodName: Show
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 1533275837}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
