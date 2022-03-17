@@ -14,7 +14,7 @@ In this prototype, only the hand tracking and the virtual piano are displayed. O
 
 ---
 
-## First Version
+## Beta 0.1.0
 *14/02/2022*
 
 <div align="center">
