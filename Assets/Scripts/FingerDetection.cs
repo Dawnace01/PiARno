@@ -5,163 +5,299 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Microsoft;
-using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Input;
+using Microsoft.MixedReality.Toolkit.UI;
 
 using PianoUtilities;
+using System.Linq;
 
 public class FingerDetection : MonoBehaviour
-{
-    public GameObject key;
-    public Color keyOriginalColor = Color.white;
-    public Color keyCorrectColor = Color.cyan;
-    public Color keyErrorColor = Color.red;
-    public Color keyNotPlayerModeColor = new Color(239, 156, 2);
-    MixedRealityPose poseThumbR, poseIndexR, poseMiddleR, poseRingR, posePinkyR;
-    MixedRealityPose poseThumbL, poseIndexL, poseMiddleL, poseRingL, posePinkyL;
+{ 
+    public GameObject gameObject;
+    public GameObject target;
+    public Interactable interactable;
+    public States states;
+    private KeyStates keyStates = null;
 
-    private void Start(){  }
+    private ThemeDefinition playerBlackTheme, errorBlackTheme, correctBlackTheme,
+        playerWhiteTheme, errorWhiteTheme, correctWhiteTheme;
+
+
+    private void Start()
+    {
+        keyStates = gameObject.GetComponent<KeyStates>();
+
+        // Get the default configuration for the Theme engine InteractableColorTheme
+        playerBlackTheme = ThemeDefinition.GetDefaultThemeDefinition<InteractableColorTheme>().Value;
+        // Define a color for every state in our Default Interactable States
+        playerBlackTheme.StateProperties[0].Values = new List<ThemePropertyValue>()
+            {
+                new ThemePropertyValue() { Color = Color.black },  // Default
+                new ThemePropertyValue() { Color = Color.grey }, // Focus
+                new ThemePropertyValue() { Color = Color.yellow },   // Pressed
+                new ThemePropertyValue() { Color = Color.black  },   // Disabled
+            };
+
+        errorBlackTheme = ThemeDefinition.GetDefaultThemeDefinition<InteractableColorTheme>().Value;
+        errorBlackTheme.StateProperties[0].Values = new List<ThemePropertyValue>()
+            {
+                new ThemePropertyValue() { Color = Color.black },  // Default
+                new ThemePropertyValue() { Color = Color.grey }, // Focus
+                new ThemePropertyValue() { Color = Color.red },   // Pressed
+                new ThemePropertyValue() { Color = Color.black  },   // Disabled
+            };
+
+        correctBlackTheme = ThemeDefinition.GetDefaultThemeDefinition<InteractableColorTheme>().Value;
+        correctBlackTheme.StateProperties[0].Values = new List<ThemePropertyValue>()
+            {
+                new ThemePropertyValue() { Color = Color.black },  // Default
+                new ThemePropertyValue() { Color = Color.grey }, // Focus
+                new ThemePropertyValue() { Color = Color.cyan },   // Pressed
+                new ThemePropertyValue() { Color = Color.black },   // Disabled
+            };
+
+        /*************/
+
+        playerWhiteTheme = ThemeDefinition.GetDefaultThemeDefinition<InteractableColorTheme>().Value;
+        playerWhiteTheme.StateProperties[0].Values = new List<ThemePropertyValue>()
+            {
+                new ThemePropertyValue() { Color = Color.white },  // Default
+                new ThemePropertyValue() { Color = Color.grey }, // Focus
+                new ThemePropertyValue() { Color = Color.yellow },   // Pressed
+                new ThemePropertyValue() { Color = Color.white  },   // Disabled
+            };
+
+        errorWhiteTheme = ThemeDefinition.GetDefaultThemeDefinition<InteractableColorTheme>().Value;
+        errorWhiteTheme.StateProperties[0].Values = new List<ThemePropertyValue>()
+            {
+            /* **** PROBLEME AVEC `new Color(...)` **** */
+                new ThemePropertyValue() { Color = Color.white },  // Default
+                new ThemePropertyValue() { Color = Color.grey }, // Focus
+                new ThemePropertyValue() { Color = Color.red },   // Pressed
+                new ThemePropertyValue() { Color = Color.white  },   // Disabled
+            };
+
+        correctWhiteTheme = ThemeDefinition.GetDefaultThemeDefinition<InteractableColorTheme>().Value;
+        correctWhiteTheme.StateProperties[0].Values = new List<ThemePropertyValue>()
+            {
+                new ThemePropertyValue() { Color = Color.white },  // Default
+                new ThemePropertyValue() { Color = Color.grey }, // Focus
+                new ThemePropertyValue() { Color = Color.cyan },   // Pressed
+                new ThemePropertyValue() { Color = Color.white  },   // Disabled
+            };
+
+    }
 
     private void Update()
-    {
-        key.GetComponent<MeshRenderer>().material.color = keyOriginalColor;
-        setKeyStatus(false, Hand.NONE, Fingering.NONE);
-        /****** Right hand ******/
-        // Thumb
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Right, out poseThumbR))
-        {
-            if (isCollision(poseThumbR.Position))
-            {
-                setColor();
-                setKeyStatus(true, Hand.RIGHT, Fingering.ONE);
-            }
-        }
-        // Index
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Right, out poseIndexR))
-        {
-            if (isCollision(poseIndexR.Position))
-            {
-                setColor();
-                setKeyStatus(true, Hand.RIGHT, Fingering.TWO);
-            }
-        }
-        // Middle
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Right, out poseMiddleR))
-        {
-            if (isCollision(poseMiddleR.Position))
-            {
-                setColor();
-                setKeyStatus(true, Hand.RIGHT, Fingering.THREE);
-            }
-        }
-        // Ring
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Right, out poseRingR))
-        {
-            if (isCollision(poseRingR.Position))
-            {
-                setColor();
-                setKeyStatus(true, Hand.RIGHT, Fingering.FOUR);
-            }
-        }
-        // Pinky
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Right, out posePinkyR))
-        {
-            if (isCollision(posePinkyR.Position))
-            {
-                setColor();
-                setKeyStatus(true, Hand.RIGHT, Fingering.FIVE);
-            }
-        }
+    {    
+    }
 
-        /****** Left hand ******/
-        // Thumb
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.ThumbTip, Handedness.Left, out poseThumbL))
+    private void setKeyColor(string tag, string keyTheme)
+    {
+        switch (tag)
         {
-            if (isCollision(poseThumbL.Position))
-            {
-                setColor();
-                setKeyStatus(true, Hand.LEFT, Fingering.ONE);
-            }
+            case "error":
+                if (keyTheme == "white")
+                {
+                    interactable.Profiles = new List<InteractableProfileItem>()
+                {
+                    new InteractableProfileItem()
+                    {
+                        Themes = new List<Theme>()
+                        {
+                            Interactable.GetDefaultThemeAsset(new List<ThemeDefinition>() { errorWhiteTheme })
+                        },
+                        Target = target,
+                    },
+                };
+                }
+                else
+                {
+                    interactable.Profiles = new List<InteractableProfileItem>()
+                {
+                    new InteractableProfileItem()
+                    {
+                        Themes = new List<Theme>()
+                        {
+                            Interactable.GetDefaultThemeAsset(new List<ThemeDefinition>() { errorBlackTheme })
+                        },
+                        Target = target,
+                    },
+                };
+                }
+                break;
+            case "correct":
+                if (keyTheme == "white")
+                {
+                    interactable.Profiles = new List<InteractableProfileItem>()
+                {
+                    new InteractableProfileItem()
+                    {
+                        Themes = new List<Theme>()
+                        {
+                            Interactable.GetDefaultThemeAsset(new List<ThemeDefinition>() { correctWhiteTheme })
+                        },
+                        Target = target,
+                    },
+                };
+                }
+                else
+                {
+                    interactable.Profiles = new List<InteractableProfileItem>()
+                {
+                    new InteractableProfileItem()
+                    {
+                        Themes = new List<Theme>()
+                        {
+                            Interactable.GetDefaultThemeAsset(new List<ThemeDefinition>() { correctBlackTheme })
+                        },
+                        Target = target,
+                    },
+                };
+                }
+                break;
+            case "player":
+                if (keyTheme == "white")
+                {
+                    interactable.Profiles = new List<InteractableProfileItem>()
+                {
+                    new InteractableProfileItem()
+                    {
+                        Themes = new List<Theme>()
+                        {
+                            Interactable.GetDefaultThemeAsset(new List<ThemeDefinition>() { playerWhiteTheme })
+                        },
+                        Target = target,
+                    },
+                };
+                }
+                else
+                {
+                    interactable.Profiles = new List<InteractableProfileItem>()
+                {
+                    new InteractableProfileItem()
+                    {
+                        Themes = new List<Theme>()
+                        {
+                            Interactable.GetDefaultThemeAsset(new List<ThemeDefinition>() { playerBlackTheme })
+                        },
+                        Target = target,
+                    },
+                };
+                }
+                break;
+            default:
+                Debug.LogError("Error : missmatch in setKeyColor() function.");
+                break;
         }
-        // Index
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Left, out poseIndexL))
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.name.Contains("Sphere "))
         {
-            if (isCollision(poseIndexL.Position))
+
+            Debug.Log("Collision received : " + collision.transform.name.Replace("Sphere ","") + " hits " + this.transform.name);
+            
+            if (gameObject.transform.name.Contains("b") && gameObject.transform.name.Contains("#"))
             {
-                setColor();
-                setKeyStatus(true, Hand.LEFT, Fingering.TWO);
+                if (!keyStates.isPlayerMode)
+                {
+                    setKeyColor("player", "black");
+                }
+                else if (keyStates._isError)
+                {
+                    setKeyColor("error", "black");
+                }
+                else
+                {
+                    setKeyColor("correct", "black");
+                }
             }
-        }
-        // Middle
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.MiddleTip, Handedness.Left, out poseMiddleL))
-        {
-            if (isCollision(poseMiddleL.Position))
+            else
             {
-                setColor();
-                setKeyStatus(true, Hand.LEFT, Fingering.THREE);
+                if (!keyStates.isPlayerMode)
+                {
+                    setKeyColor("player", "white");
+                }
+                else if (keyStates._isError)
+                {
+                    setKeyColor("error", "white");
+                }
+                else
+                {
+                    setKeyColor("correct", "white");
+                }
             }
+
+            interactable.Profiles[0].Themes[0].States = states;
+            interactable.SetState(InteractableStates.InteractableStateEnum.Pressed, true);
         }
-        // Ring
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.RingTip, Handedness.Left, out poseRingL))
+        else if (collision.transform.name.Contains("A") ||
+            collision.transform.name.Contains("B") ||
+            collision.transform.name.Contains("C") ||
+            collision.transform.name.Contains("D") ||
+            collision.transform.name.Contains("E") ||
+            collision.transform.name.Contains("F") ||
+            collision.transform.name.Contains("G")
+            )
         {
-            if (isCollision(poseRingL.Position))
-            {
-                setColor();
-                setKeyStatus(true, Hand.LEFT, Fingering.FOUR);
+            keyStates = gameObject.GetComponent<KeyStates>();
+            if (gameObject.transform.name.Contains("/")) {
+                string[] tabNames = gameObject.transform.name.Split('/');
+
+                foreach (string s in tabNames)
+                {
+                    if (s.Equals(collision.transform.name))
+                    {
+                        Debug.Log("Collision received : " + "'Bloc " + collision.transform.name + "' hits " + this.transform.name);
+                        if (gameObject.transform.name.Contains("b") && gameObject.transform.name.Contains("#"))
+                        {
+                            if (!keyStates.isPlayerMode)
+                            {
+                                setKeyColor("player", "black");
+                            }
+                            else if (keyStates._isError)
+                            {
+                                setKeyColor("error", "black");
+                            }
+                            else
+                            {
+                                setKeyColor("correct", "black");
+                            }
+                        }
+                        else
+                        {
+                            if (!keyStates.isPlayerMode)
+                            {
+                                setKeyColor("player", "white");
+                            }
+                            else if (keyStates._isError)
+                            {
+                                setKeyColor("error", "white");
+                            }
+                            else
+                            {
+                                setKeyColor("correct", "white");
+                            }
+                        }
+
+                        interactable.Profiles[0].Themes[0].States = states;
+                        interactable.SetState(InteractableStates.InteractableStateEnum.Pressed, true);
+                    }
+                }
             }
-        }
-        // Pinky
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.PinkyTip, Handedness.Left, out posePinkyL))
-        {
-            if (isCollision(posePinkyL.Position))
+            else if (gameObject.transform.name.Equals(collision.transform.name))
             {
-                setColor();
-                setKeyStatus(true, Hand.LEFT, Fingering.FIVE);
+                Debug.Log("Collision received : " + "'Bloc " + collision.transform.name + "' hits " + this.transform.name);
+                interactable.Profiles[0].Themes[0].States = states;
+                interactable.SetState(InteractableStates.InteractableStateEnum.Pressed, true);
             }
         }
     }
 
-    private bool isCollision(Vector3 current)
+    public void OnCollisionExit(Collision collision)
     {
-        Vector3 button = key.transform.position;
-
-        float halfWidth = key.transform.localScale.x / 2,
-            halfHeight = key.transform.localScale.y / 2,
-            halfDeep = key.transform.localScale.z / 2;
-
-        return (
-                (current.x >= (button.x - halfWidth)) && (current.x <= (button.x + halfWidth))
-                &&
-                (current.y >= (button.y - halfHeight)) && (current.y <= (button.y + halfHeight))
-                &&
-                (current.z >= (button.z - halfDeep)) && (current.z <= (button.z + halfDeep))
-            );
-    }
-
-    private void setColor()
-    {
-        if (!key.GetComponent<KeyStates>().isPlayerMode)
-        {
-            key.GetComponent<MeshRenderer>().material.color = keyNotPlayerModeColor;
-        }
-
-        else if (key.GetComponent<KeyStates>()._isError)
-        {
-            key.GetComponent<MeshRenderer>().material.color = keyErrorColor;
-        }
-
-        else
-        {
-            key.GetComponent<MeshRenderer>().material.color = keyCorrectColor;
-        }
-    }
-
-    private void setKeyStatus(bool isPressed, Hand currentHand, Fingering currentFingering)
-    {
-        // changement de l'état de la touche
-        key.GetComponent<KeyStates>().isKeyPressed = isPressed;
-        // ajout du déclencheur de l'action
-        key.GetComponent<KeyStates>().keyCurrentFinger = currentFingering;
-        key.GetComponent<KeyStates>().keyCurrentHand = currentHand;
+        interactable.SetState(InteractableStates.InteractableStateEnum.Pressed, false);
     }
 }

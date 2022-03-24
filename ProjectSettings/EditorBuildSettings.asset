@@ -11,12 +11,21 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MRTK_test.unity
     guid: b53d9b358e06d8d4f927418df95a02c6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AR_Piano.unity
     guid: 46e99132327899f49ab64f0eb38f3c66
   - enabled: 0
     path: Assets/Scenes/FingerTrackingTest.unity
     guid: 392a76c2ea229f2448669245b5f014c3
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/affichescore.unity
+    guid: 03ec868128d94964891d6932b907203c
+  - enabled: 1
+    path: Assets/Scenes/Finale.unity
+    guid: 7ef46833eb7c672409c0717d36c15e04
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

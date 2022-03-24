@@ -22,3 +22,4 @@ In this prototype, only the hand tracking and the virtual piano are displayed. O
 </div>
 
 This first version include a full tracking of each finger and a user interface listing few songs that are completly playable.
+
